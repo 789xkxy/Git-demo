@@ -61,7 +61,7 @@ int main() {
                 printf("检查项目："); fgets(item, 30, stdin);
                 item[strcspn(item, "\n")] = 0;
 
-                doctorWholeFlow(recId, patId, docId, diag, type, item);
+                doctorWholeFlow(recId, patId, docId, diag,(ExamType) type, item);
                 break;
             }
 
@@ -130,7 +130,7 @@ void addDoctor() {
         return;
     }
 
-    Doctor* newNode = malloc(sizeof(Doctor));
+    Doctor* newNode =(Doctor*) malloc(sizeof(Doctor));
     if (!newNode) return;
     newNode->docId = docId;
     newNode->deptId = deptId;
@@ -213,7 +213,7 @@ void doctorListBuild() {
 
     while (fscanf(fp, "%d %s %s %d", &id, name, gen, &dept) == 4) {
         if (!isDocIdValid(id) || !isDeptIdValid(dept) || isDocIdExist(id)) continue;
-        Doctor* t = malloc(sizeof(Doctor));
+        Doctor* t = (Doctor*)malloc(sizeof(Doctor));
         t->docId = id; t->deptId = dept;
         strcpy(t->docName, name);
         strcpy(t->docGender, gen);
@@ -308,7 +308,7 @@ Record* doctorRegister(int recId, int patId, int docId) {
     Patient* pat = findPatientById(patId);
     if (!pat) return NULL;
 
-    Record* r = malloc(sizeof(Record));
+    Record* r = (Record*)malloc(sizeof(Record));
     memset(r, 0, sizeof(Record));
     r->recId = recId;
     r->patId = patId;
@@ -328,7 +328,7 @@ void doctorDiagnose(Record* r, const char* content) {
 }
 
 Exam* doctorCreateExam(int examId, int patId, ExamType type, const char* item) {
-    Exam* e = malloc(sizeof(Exam));
+    Exam* e =(Exam*) malloc(sizeof(Exam));
     memset(e, 0, sizeof(Exam));
     e->examId = examId;
     e->patId = patId;
